@@ -22,7 +22,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
+    - uses: actions/checkout@v2
       with:
         fetch-depth: '0'
     - name: Bump version and push tag
@@ -32,7 +32,7 @@ jobs:
         WITH_V: true
 ```
 
-_NOTE: set the fetch-depth for `actions/checkout@master` to be sure you retrieve all commits to look for the semver commit message._
+_NOTE: set the fetch-depth for `actions/checkout@v2` to be sure you retrieve all commits to look for the semver commit message._
 
 #### Options
 
@@ -48,6 +48,7 @@ _NOTE: set the fetch-depth for `actions/checkout@master` to be sure you retrieve
 * **INITIAL_VERSION** *(optional)* - Set initial version before bump. Default `0.0.0`.
 * **TAG_CONTEXT** *(optional)* - Set the context of the previous tag. Possible values are `repo` (default) or `branch`.
 * **PRERELEASE_SUFFIX** *(optional)* - Suffix for your prerelease versions, `beta` by default. Note this will only be used if a prerelease branch.
+* **VERBOSE** *(optional)* - Print git logs. For some projects these logs may be very large. Possible values are ```true``` (default) and ```false```. 
 
 #### Outputs
 
@@ -74,7 +75,7 @@ _NOTE: set the fetch-depth for `actions/checkout@master` to be sure you retrieve
   * Get latest tag
   * Bump tag with minor version unless any commit message contains `#major` or `#patch`
   * Pushes tag to github
-  * If triggered on your repo's default branch (`master` if unchanged), the bump version will be a release tag.
+  * If triggered on your repo's default branch (`master` or `main` if unchanged), the bump version will be a release tag.
   * If triggered on any other branch, a prerelease will be generated, depending on the bump, starting with `*-<PRERELEASE_SUFFIX>.1`, `*-<PRERELEASE_SUFFIX>.2`, ...
 
 ### Credits
